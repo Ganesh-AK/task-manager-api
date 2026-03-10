@@ -8,12 +8,18 @@ def get_next_id(tasks):
     return max(t.id for t in tasks) + 1
 
 @validate_priority
-def add_task(title, description='', priority='medium'):
+def add_task():
+    title = input("Title: ").strip()
+    description = input("Description: ").strip()
+    priority = input("Priority (low/medium/high): ").strip() or 'medium'
+    due_date = input("Due date (YYYY-MM-DD, or press Enter to skip): ").strip() or None
+
     tasks = load_tasks()
-    task = Task(get_next_id(tasks), title, description, priority)
+    new_id = max([t.id for t in tasks], default=0) + 1
+    task = Task(new_id, title, description, priority, due_date=due_date)
     tasks.append(task)
     save_tasks(tasks)
-    print(f"✅ Task added: [{task.id}] {task.title}")
+    print(f"✅ Task added.")
 
 def list_tasks(filter_priority=None, filter_status=None):
     tasks = load_tasks()
@@ -88,6 +94,26 @@ def update_task(task_id, new_title=None, new_description=None, new_priority=None
             return
     print(f"❌ Task {task_id} not found.")
 
+def list_overdue():
+    tasks = load_tasks()
+    overdue = [t for t in tasks if t.is_overdue()]
+        
+    if not overdue:
+        print("✅ No overdue tasks!")
+        return
+        
+    print(f"\n🚨 OVERDUE TASKS ({len(overdue)}):")
+    for t in overdue:
+        print(f"  [{t.id}] {t.title} — due {t.due_date} | {t.priority} priority")
+
+def priority_breakdown():
+    tasks = load_tasks()
+    print("\n📊 TASKS BY PRIORITY:")
+    for level in ['high', 'medium', 'low']:
+        count = len([t for t in tasks if t.priority == level])
+        bar = '█' * count
+        print(f"  {level:<8}: {bar} ({count})")
+
 def show_menu():
     print("\n" + "="*40)
     print("       TASK MANAGER")
@@ -101,6 +127,8 @@ def show_menu():
     print("7. Search tasks")
     print("8. Show Summary")
     print("9. Update Task")
+    print("10. List overdue tasks")
+    print("11. Priority breakdown")
     print("0. Exit")
     print("="*40)
 
@@ -160,6 +188,12 @@ def main():
                 update_task(task_id, new_title, new_desc, new_priority)
             except ValueError:
                 print("❌ Please enter a valid number.")
+
+        elif choice == '10':
+            list_overdue()
+
+        elif choice == '11':
+            priority_breakdown()
 
         elif choice == '0':
             print("Goodbye! 👋")
