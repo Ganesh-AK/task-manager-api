@@ -5,7 +5,8 @@
     "description": "Build REST AP",
     "priority": "high",
     "status": "completed",
-    "created_at": "2026-03-10T14:21:53.981748"
+    "created_at": "2026-03-10T14:21:53.981748",
+    "due_date": null
   },
   {
     "id": 2,
@@ -13,6 +14,16 @@
     "description": "completed",
     "priority": "medium",
     "status": "pending",
-    "created_at": "2026-03-10T14:22:25.530337"
+    "created_at": "2026-03-10T14:22:25.530337",
+    "due_date": null
+  },
+  {
+    "id": 3,
+    "title": "gen ai",
+    "description": "going",
+    "priority": "high",
+    "status": "pending",
+    "created_at": "2026-03-10T21:17:18.603130",
+    "due_date": "2026-03-20"
   }
 ]

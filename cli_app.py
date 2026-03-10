@@ -7,11 +7,15 @@ def get_next_id(tasks):
         return 1
     return max(t.id for t in tasks) + 1
 
-@validate_priority
 def add_task():
     title = input("Title: ").strip()
     description = input("Description: ").strip()
+    
     priority = input("Priority (low/medium/high): ").strip() or 'medium'
+    while priority not in ['low', 'medium', 'high']:
+        print("❌ Invalid priority. Please enter low, medium, or high.")
+        priority = input("Priority (low/medium/high): ").strip() or 'medium'
+    
     due_date = input("Due date (YYYY-MM-DD, or press Enter to skip): ").strip() or None
 
     tasks = load_tasks()
@@ -19,7 +23,7 @@ def add_task():
     task = Task(new_id, title, description, priority, due_date=due_date)
     tasks.append(task)
     save_tasks(tasks)
-    print(f"✅ Task added.")
+    print("✅ Task added.")
 
 def list_tasks(filter_priority=None, filter_status=None):
     tasks = load_tasks()
@@ -139,10 +143,7 @@ def main():
         choice = input("Choose option: ").strip()
 
         if choice == '1':
-            title = input("Title: ").strip()
-            desc = input("Description (optional): ").strip()
-            priority = input("Priority (low/medium/high) [medium]: ").strip() or 'medium'
-            add_task(title, desc, priority)
+            add_task()
 
         elif choice == '2':
             list_tasks()
