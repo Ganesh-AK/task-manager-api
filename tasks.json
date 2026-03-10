@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "Learn FastAPI",
+    "description": "Build REST AP",
+    "priority": "high",
+    "status": "completed",
+    "created_at": "2026-03-10T14:21:53.981748"
+  },
+  {
+    "id": 2,
+    "title": "Learn Docker",
+    "description": "Containerize app",
+    "priority": "medium",
+    "status": "pending",
+    "created_at": "2026-03-10T14:22:25.530337"
+  }
+]

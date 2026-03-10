@@ -26,7 +26,22 @@ class Task:
     def __repr__(self):
         return f"Task({self.id}: {self.title} [{self.status}])"
     
+    @classmethod
+    def from_dict(cls, data: dict):
+        task = cls(
+            id=data['id'],
+            title=data['title'],
+            description=data.get('description', ''),
+            priority=data.get('priority', 'medium')
+        )
+        task.status = data.get('status', 'pending')
+        task.created_at = data.get('created_at', '')
+        return task
+    
     def update_priority(self, new_priority):
+        if new_priority not in ['low', 'medium', 'high']:
+            print("Invalid priority!")
+            return
         self.priority = new_priority
         print(f"Priority updated to: {new_priority}")
 
