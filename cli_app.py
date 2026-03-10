@@ -100,6 +100,7 @@ def show_menu():
     print("6. Delete a task")
     print("7. Search tasks")
     print("8. Show Summary")
+    print("9. Update Task")
     print("0. Exit")
     print("="*40)
 
